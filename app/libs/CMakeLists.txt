@@ -3,6 +3,7 @@ project(cpp-my-rest-libs)
 
 set(SOURCES
     src/dummy.cpp
+    src/restserver.cpp
 )
 
 find_package(cpprestsdk REQUIRED)
