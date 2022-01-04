@@ -166,8 +166,19 @@ TEST(RestServer, reset_function)
 TEST(RestServer, wild_card)
 {
     RestServer server(U("http://0.0.0.0:1009"));
-    server.OnGet("/test_url/*", [&](auto&& req){ return req.uri().to_string(); });
+    server.OnGet("/test_url/*", [&](auto&& req){ return req.uri().to_string(); }); //됨
     server.OnPost("/test_url/*", [&](auto&& req){ return req.uri().to_string(); });
+
+    //server.OnGet("/test_url/hello", [&](auto&& req){ return req.uri().to_string(); });
+    //server.OnPost("/test_url/*", [&](auto&& req){ return req.uri().to_string(); }); //post 오류
+
+    //server.OnGet("/test_url/*", [&](auto&& req){ return req.uri().to_string(); }); //됨
+    //server.OnPost("/test_url/world", [&](auto&& req){ return req.uri().to_string(); }); //무슨차이?????
+
+    // 찾았다 post와 get map을 분리하던가 앞에 prefix 붙혀야함
+
+    //get, post말고도 종류가 많아서 map늘리기 싫어서 prefix 붙혔더니 코드가 더러움 어떻게 줄이지
+
     server.Run();
 
     const auto actual_response1 = request_get("http://0.0.0.0:1009", "/test_url/hello");
