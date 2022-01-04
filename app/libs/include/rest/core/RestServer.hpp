@@ -14,8 +14,9 @@ namespace core
 struct Request {
     Request(web::http::http_request req){};
 
-    
+    const web::http::uri& uri() const;
 };
+
 struct Response {
     Response(web::http::http_response resp);
     Response(const std::string& message);
@@ -28,8 +29,6 @@ struct Response {
     private:
         web::http::http_response response;
 };
-
-
 
 inline bool operator == (const Response& lhs, const Response& rhs)
 {
